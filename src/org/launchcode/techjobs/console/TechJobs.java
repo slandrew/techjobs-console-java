@@ -39,7 +39,7 @@ public class TechJobs {
                 String columnChoice = getUserSelection("List", columnChoices);
 
                 if (columnChoice.equals("all")) {
-                    printJobs(JobData.findAll());
+                    printJobs(JobData.findAll(), "");
                 } else {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
@@ -62,9 +62,9 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findByValue(searchTerm));
+                    printJobs(JobData.findByValue(searchTerm), searchTerm);
                 } else {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm), searchTerm);
                 }
             }
         }
@@ -110,13 +110,13 @@ public class TechJobs {
     }
 
     // Print a list of jobs
-    private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+    private static void printJobs(ArrayList<HashMap<String, String>> someJobs, String criteria) {
 
         if (someJobs.size() < 1) {
-            System.out.println("No jobs meet your search criteria.");
+            System.out.println("No jobs meet your search criteria of: '" + criteria + "'. Please search again.");
         }
         else {
-            String jobListing = "*****";
+            String jobListing = "\n*****";
             for (HashMap jobs : someJobs){
                 List<String> keys = new ArrayList<>(jobs.keySet());
                 for (String key : keys){

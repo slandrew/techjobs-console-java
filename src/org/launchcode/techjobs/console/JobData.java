@@ -124,5 +124,35 @@ public class JobData {
             e.printStackTrace();
         }
     }
+    public static ArrayList<HashMap<String, String>> findByValue (String search) {
+        //load data
+        loadData();
+        //initialize jobs arraylist
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        //iterate through each job in allJobs list
+        for (HashMap<String, String> job : allJobs) {
+            //initialize boolean to determine if criteria is found
+            Boolean isFound = false;
+            //initialize list for each key in job
+            List<String> keys = new ArrayList<>(job.keySet());
+            //for each key search for criteria
+            for (String key : keys){
+                //if found in key, set boolean to true
+                if (key.contains(search)){
+                    isFound = true;
+                }
+                //if found in value, set boolean to true
+                if (job.get(key).contains(search)){
+                    isFound = true;
+                }
+            }
+            //if criteria found in all jobs, add to jobs list
+            if (isFound == true) {
+                jobs.add(job);
+            }
+        }
+        //return jobs list
+        return jobs;
+    }
 
 }
